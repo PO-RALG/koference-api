@@ -43,11 +43,12 @@ export class RolesGuard implements CanActivate {
     }
 
     const token = user.rawHeaders[tokenIndex]?.replace('Bearer ', '');
-    console.log('token', token);
+    // console.log('token', token);
 
     const decoded = await this.authService.verifyToken(token);
     const user1 = await this.userService.findOne(decoded.sub);
     const roleNames = user1.roles.map((role) => role.name);
+    // console.log('roleNames', roleNames);
 
     return requreRoles.some((role) => roleNames.includes(role));
   }
